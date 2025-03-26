@@ -14,6 +14,7 @@ O: a dictionary that shows the number of words of different sizes
 - What if there is more than one space between the words?
     + Directions say "consisting of zero or more space-separated words" so the
       number of spaces does not affect the output.
+- What if the string only has punctuation instead of letters?
 
 ✱ RULES ✱
 - solution must be in the form of a function
@@ -30,7 +31,10 @@ O: a dictionary that shows the number of words of different sizes
 - 'Four score and seven.' -> {4: 1, 5: 2, 3: 1}
 - "What's up doc?" -> {5: 1, 2: 1, 3: 1}
 - '' -> {}
+Own test cases:
 - 'hello   clouds!' -> {4: 1, 6: 1}
+- '!!!' -> {}
+- '!!! hello ~ wow .' -> {5: 1, 3: 1}
 
 ✱ DS ✱
 - A list of the words in the input string.
@@ -68,6 +72,9 @@ def word_sizes(txt):
 
     for word in new_words_list:
         length = len(word)
+
+        if length == 0:
+            continue
 
         if length not in letter_count:
             letter_count[length] = 0
@@ -121,3 +128,6 @@ string = "What's up doc?"
 print(word_sizes(string) == {5: 1, 2: 1, 3: 1})
 
 print(word_sizes('') == {})
+
+print(word_sizes('!!!'))
+print(word_sizes('!!! hello ~ wow .'))
