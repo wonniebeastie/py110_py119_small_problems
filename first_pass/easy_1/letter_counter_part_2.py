@@ -37,11 +37,10 @@ Own test cases:
 - '!!! hello ~ wow .' -> {5: 1, 3: 1}
 
 ✱ DS ✱
-- A list of the words in the input string.
+- A list containing the words from the input string. 
 - An empty dictionary to collect the counts.
-- A new list to add the new words without punctuation.
-- An empty string to concatenate each letter to, to form the words without
-  punctuation.
+- A list that contains the transformed words.
+
 
 ✱ ALGORITHM ✱
 I: `txt`
@@ -49,10 +48,11 @@ I: `txt`
 [] Initialize a list of the words in `txt`, using spaces as the separator 
    between words - assign to `words_list`.
 
-[x] create a list of words without punctuation - `new_words_list`
-    - from: `words_list`
-    - filter for: n/a
-    - do what: call `form_new_word()` function
+[] Create a new list of words from `words_list` transformed to exclude 
+   punctutation - assign to `new_words_list`.
+   - for each word:
+        - transform: call `remove_punctuation()` helper function
+        - condition: n/a 
 
 [] For each `word` in `new_words_list`:
     [] Count the number of characters in `word` - assign to `length`
@@ -68,7 +68,7 @@ def word_sizes(txt):
     letter_count = {}
     words_list = txt.split()
 
-    new_words_list = [form_new_word(word) for word in words_list]
+    new_words_list = [remove_punctuation(word) for word in words_list]
 
     for word in new_words_list:
         length = len(word)
@@ -84,7 +84,7 @@ def word_sizes(txt):
     return letter_count
 
 """
-<-------- HELPER FUNCTION: `form_new_word()` -------->
+<-------- HELPER FUNCTION: `remove_punctuation()` -------->
 PURPOSE
 To return a word without puntuation. 
 
@@ -92,7 +92,8 @@ I: a string (a word) - `word`
 O: a string, the input string without punctuation
 
 ✱ DS / VIS ✱
-- An empty string for form new word without punctuation.
+- An empty string to concatenate each letter to, to form the words without
+  punctuation.
 
 ✱ ALGO ✱
 [] Initialize empty string - `new_word`.
@@ -104,7 +105,7 @@ O: a string, the input string without punctuation
 [x] Return `new_word`
 <------------------------------>
 """
-def form_new_word(word):
+def remove_punctuation(word):
     new_word = ''
 
     for letter in word:
@@ -116,7 +117,7 @@ def form_new_word(word):
 # All of these examples should print True
 
 string = 'Four score and seven.'
-print(word_sizes(string) == {4: 1, 5: 2, 3: 1})
+print(word_sizes(string) == {4: 1, 5: 2, 3: 1}) # True
 
 string = 'Hey diddle diddle, the cat and the fiddle!'
 print(word_sizes(string) == {3: 5, 6: 3})
@@ -129,5 +130,6 @@ print(word_sizes(string) == {5: 1, 2: 1, 3: 1})
 
 print(word_sizes('') == {})
 
-print(word_sizes('!!!'))
-print(word_sizes('!!! hello ~ wow .'))
+print(word_sizes('!!!') == {})
+
+print(word_sizes('!!! hello ~ wow .') == {5: 1, 3: 1})
