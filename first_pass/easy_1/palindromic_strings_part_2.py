@@ -27,7 +27,6 @@ I: `txt`
 [x] check if they match
     [x] if they match return True
     [x] else return False
-
 """
 def is_palindrome(txt):
     reversed_txt = txt[::-1]
