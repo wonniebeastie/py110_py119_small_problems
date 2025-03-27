@@ -62,26 +62,19 @@ O: a string (input word with first and last letters swapped places)
 
 ✱ ALGO ✱
 I: `word`
-[] separate word into individual characters in a list - `letters_list`
-[] assign the value at index 0 to `first_letter`
-[] assign the value at last index to `last_letter`
-[] reassign index 0 of letters_list with value of last_letter
-[] reassign last index of letters_list with value of first_letter
-[x] join the letters in letters_list together and return it.
+[] if length of word is 1:
+    return word
+[x] return the last letter of word concatenated with the middle letters and the 
+   first letter 
 <------------------------------>
 """
 def swap_first_last_letters(word):
-    letters_list = list(word)
+    if len(word) == 1:
+        return word
 
-    first_letter = letters_list[0]
-    last_letter = letters_list[-1]
+    return word[-1] + word[1:-1] + word[0]
 
-    letters_list[0] = last_letter
-    letters_list[-1] = first_letter
-
-    return ''.join(letters_list)
-
-swap_first_last_letters('what') # thaw
+print(swap_first_last_letters('what')) # thaw
 
 print(swap('Oh what a wonderful day it is')
       == "hO thaw a londerfuw yad ti si")  # True
