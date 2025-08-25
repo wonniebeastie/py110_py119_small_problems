@@ -89,56 +89,20 @@ Algo:
     - concatenate "0" to the beginning of the string & return it
 - return it
 
-0 -> 0 -> "0" ->
-2.23493 -> 2 -> "2" ->
-35.654543 -> 35 -? "35" ->
+0 -> 0 -> "0" -> "00"
+2.23493 -> 2 -> "2" -> "02" 
+35.654543 -> 35 -? "35" -> "35"
 """
 DEGREE = "\u00B0"
 
 def dms(angle_in_float):
-    min = (angle_in_float % 1) * 60
-    sec = (min % 1) * 60
-    return f"{int(angle_in_float)}{DEGREE}{pad_zeros(min)}'{pad_zeros(sec)}\""
+    int_deg = int(angle_in_float)
+    minutes = (angle_in_float % 1) * 60
+    seconds = (minutes % 1) * 60
+    return f"{int_deg}{DEGREE}{pad_zeros(minutes)}'{pad_zeros(seconds)}\""
 
 def pad_zeros(num):
-    num = str(int(num))
-    if len(num) == 1:
+    str_num = str(int(num))
+    if len(str_num) < 2:
         return "0" + num
-    return num
-
-"""
-DEBUGGING NOTES:
-
-Problem:
-- sec is not being calculated correctly due to the `int()` in min
-
-Options: [DID NOT WORK]
-- remove int from min 
-    - min will not be truncated
-        - Problem: meaning that the pad_zeros() will receive possibly 
-          a long int, and change it into a string
-            - Option: move the int() to inside pad_zeros()
-                - 2.0863800000000765 -> 2 -> "2"
-                - "0" + "2"
-                - "02"
-
-Problem: the zeros are covered because their length is 1, but
-the long floats are not being covered by the if conditions
-
-Problem: the test cases with non-zero numbers for both places are
-not being truncated properly.
-
-Option 1: [DID NOT WORK]
-- put int() for both min and sec in the return line 
-    - does not work because turning the strings into integers makes
-      them short again "00" -> 0
-
-Option 2: [WORKED!]
-- change pad_zeros function
-    - if input is 0: get padded with "0" in front
-    - if input is a single non-zero number (i.e. 2 or 5), then:
-        - truncated it to lose the decimal part
-        - also pad with "0" in front
-    - if input has non-zeros for both places, then just return the
-      integer version
-"""
+    return str_num
