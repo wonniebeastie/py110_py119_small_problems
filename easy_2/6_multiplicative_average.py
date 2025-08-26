@@ -44,7 +44,8 @@ print(multiplicative_average([1, 1, 1, 1]) == "0.250")
 print(multiplicative_average([2, 5, 7, 11, 13, 17]) == "28361.667")
 
 """
-MANUAL OPTION (for 3 decimal places):
+APPROACH WITHOUT STRING FORMAT SPECIFICATION (for 3 decimal places):
+
 -- FROM MAIN -->
 - after converting the result to a string
 - call round_to_3(result), return the result
@@ -54,36 +55,43 @@ I: the result, as a string
 O: the result, either padded with zeros or cut to 3 decimal places
 
 Helper Algo:
-- if the length of digits[1] is less than 3:
-    - split result into a list of digits, using "." as the delimiter `digits`
-    - initialize `digit_len` with length of digits[1]
+- turn str_result back into a float
+- round it using `round()` function, with 3 as the number of decimal places
+- turn it back into a string (initialize as `digits`)
+- split result into a list of digits, using "." as the delimiter `digits_lst`
+
+- if the length of digits_lst[1] is less than 3:
+    - initialize `digit_len` with length of digits_lst[1]
     - while digit_len is less than 3:
-        - concatenate "0" to digits[1] & assign it back to digits[1]
-        - get the length of digits[1] again & assign it back to digit_len
-    - join `digits` list back up using "." as the delimiter and return it
+        - concatenate "0" to digits_lst[1] & assign it back to digits_lst[1]
+        - get the length of digits_lst[1] again & assign it back to digit_len
+    - join `digits_lst` back up using "." as the delimiter and return it
 - else:
-    - turn str_result back into a float
-    - round it using `round()` function, with 3 as the number of decimal places
-    - turn it back into a string & return it
+    - return digits
 """
 def multiplicative_average(numbers):
     result = multiply_nums(numbers) / len(numbers)
     return round_to_3(str(result))
 
 def multiply_nums(numbers):
-    product = 1
+    result = 1
     for num in numbers:
-        product *= num
-    return product
+        result *= num
+
+    return result
 
 def round_to_3(str_result):
-    digits = str_result.split('.')
+    digits = str(round(float(str_result), 3))
+    digits_lst = str_result.split('.')
 
-    if len(digits[1]) < 3:
-        digit_len = len(digits[1])
+    if len(digits_lst[1]) < 3:
+        digit_len = len(digits_lst[1])
+
         while digit_len < 3:
-            digits[1] += "0"
-            digit_len = len(digits[1])
-        return '.'.join(digits)
+            digits_lst[1] += "0"
+            digit_len = len(digits_lst[1])
+
+        return '.'.join(digits_lst)
+
     else:
-        return str(round(float(str_result), 3))
+        return digits
