@@ -16,12 +16,7 @@ Algo:
 - return list
 """
 def digit_list(num):
-    result = []
-
-    for digit in str(num):
-        result.append(int(digit))
-
-    return result
+    return [int(num) for num in str(num)]
 
 print(digit_list(12345) == [1, 2, 3, 4, 5])       # True
 print(digit_list(7) == [7])                       # True
