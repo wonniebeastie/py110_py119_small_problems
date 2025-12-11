@@ -2,6 +2,18 @@
 Write a function that takes a positive integer as an argument and returns that 
 number with its digits reversed.
 """
+"""
+I: an integer
+O: the input integer reversed
+
+Algo:
+- convert input into a string
+- reverse the string using slicing
+- return it as an integer
+"""
+def reverse_number(num):
+    return int(str(num)[::-1])
+
 print(reverse_number(12345) == 54321)   # True
 print(reverse_number(12213) == 31221)   # True
 print(reverse_number(456) == 654)       # True
