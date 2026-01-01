@@ -18,27 +18,29 @@ Rules:
   end of the list
 
 DS/Brainstorm:
-- Keep track of index & current slice in the loop, add current slice to
-  the output list, increment the index, until the end is reached.
+- grow the substring one by one, keeping track of it via a variable
+- iterate through each character in input string
+    - use the fact that it moves up a char each loop -> to grow the substring
+    - save its state to growing_str each loop
 
 Algo:
-    - SET idx to 1
-    - SET substrings_list to an empty list
-    - while the index is not equal to the end of the length of the string + 1:
-        - SET current_slice to txt[:idx]
-        - increment idx by 1
-    - return substrings_list
+    - SET `substr_list` to an empty list
+    - SET `growing_str` to an empty string
+    - for each character in the input string:
+        - concatenate that character to `growing_str`
+            - NOTE REASSIGN to `growing_str`
+        - append `growing_str` to `substr_list`
+    - return `substr_list`
 """
 def leading_substrings(txt):
-    idx = 1
-    substrings_list = []
+    substr_list = []
+    growing_str = ''
 
-    while idx != len(txt) + 1:
-        current_slice = txt[:idx]
-        idx += 1
-        substrings_list.append(current_slice)
+    for char in txt:
+        growing_str = growing_str + char
+        substr_list.append(growing_str)
 
-    return substrings_list
+    return substr_list
 
 # All of these examples should print True
 print(leading_substrings('abc') == ['a', 'ab', 'abc'])
